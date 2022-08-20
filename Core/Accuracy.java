@@ -4,7 +4,7 @@ public class Accuracy {
 
 	public Accuracy() {
 		this.accuracy = new int[8];
-		for (int i = 0; i < accuracy.size(); i++) {
+		for (int i = 0; i < accuracy.length; i++) {
 			this.accuracy[i] = 0;
 		}
 	}

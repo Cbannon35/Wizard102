@@ -4,7 +4,7 @@ public class CriticalBlock {
 
 	public CriticalBlock() {
 		this.criticalBlock = new int[8];
-		for (int i = 0; i < criticalBlock.size(); i++) {
+		for (int i = 0; i < criticalBlock.length; i++) {
 			this.criticalBlock[i] = 0;
 		}
 	}

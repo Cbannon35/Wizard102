@@ -6,7 +6,7 @@ public class Resistance {
 	public Resistance() {
 		this.resistancePercent = new int[8];
 		this.resistanceFlat = new int[8];
-		for (int i = 0; i < resistancePercent.size(); i++) {
+		for (int i = 0; i < resistancePercent.length; i++) {
 			this.resistancePercent[i] = 0;
 			this.resistanceFlat[i] = 0;
 		}

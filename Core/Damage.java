@@ -6,7 +6,7 @@ public class Damage {
 	public Damage() {
 		this.damagePercent = new int[8];
 		this.damageFlat = new int[8];
-		for (int i = 0; i < damagePercent.size(); i++) {
+		for (int i = 0; i < damagePercent.length; i++) {
 			this.damagePercent[i] = 0;
 			this.damageFlat[i] = 0;
 		}

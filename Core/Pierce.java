@@ -4,7 +4,7 @@ public class Pierce {
 
 	public Pierce() {
 		this.pierce = new int[8];
-		for (int i = 0; i < pierce.size(); i++) {
+		for (int i = 0; i < pierce.length; i++) {
 			this.pierce[i] = 0;
 		}
 	}
