@@ -17,7 +17,6 @@ public class Stats {
     private int powerPipRating;
     private int shadowPipRating;
     private int archmasteryRating;
-    private int pipConserveRating;
    
     public Stats() {
         this.health = 0; 
@@ -35,10 +34,9 @@ public class Stats {
         this.powerPipRating = 0;
         this.shadowPipRating = 0;
         this.archmasteryRating = 0;
-        this.pipConserveRating = 0;
     }
 
-    public Stats(int health, int mana, int energy, Damage damage, Resistance resistance, Accuracy accuracy, Critical critical, CriticalBlock criticalBlock, Pierce pierce, int stunResistance, int incomingHeal, int outgoingHeal, int powerPipRating, int shadowPipRating, int archmasteryRating, int pipConserveRating) {
+    public Stats(int health, int mana, int energy, Damage damage, Resistance resistance, Accuracy accuracy, Critical critical, CriticalBlock criticalBlock, Pierce pierce, int stunResistance, int incomingHeal, int outgoingHeal, int powerPipRating, int shadowPipRating, int archmasteryRating) {
         this.health = health; 
         this.mana = mana;
         this.energy = energy;
@@ -54,6 +52,5 @@ public class Stats {
         this.powerPipRating = powerPipRating;
         this.shadowPipRating = shadowPipRating;
         this.archmasteryRating = archmasteryRating;
-        this.pipConserveRating = pipConserveRating;
     }
 }
