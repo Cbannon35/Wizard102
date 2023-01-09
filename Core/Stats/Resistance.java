@@ -1,3 +1,4 @@
+package Stats;
 public class Resistance {
 
 	private int[] resistancePercent;

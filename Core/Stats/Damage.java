@@ -1,3 +1,4 @@
+package Stats;
 public class Damage {
 
 	private int[] damagePercent;

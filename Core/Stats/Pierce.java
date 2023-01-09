@@ -1,3 +1,4 @@
+package Stats;
 public class Pierce {
 
 	private int[] pierce;

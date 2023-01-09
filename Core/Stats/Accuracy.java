@@ -1,3 +1,4 @@
+package Stats;
 public class Accuracy {
 
 	private int[] accuracy;

@@ -1,3 +1,5 @@
+package Stats;
+
 public class Critical {
 
 	private int[] critical;

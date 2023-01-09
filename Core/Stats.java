@@ -1,3 +1,5 @@
+import Stats.*;
+
 public class Stats {
 
     private int health;

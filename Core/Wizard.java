@@ -2,7 +2,7 @@ public class Wizard {
     private String name;
     private Stats stats;
     private School school;
-    private Sprite sprite;
+    //private Sprite sprite;
 
     public Wizard() {
 

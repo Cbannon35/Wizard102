@@ -1,3 +1,4 @@
+package Stats;
 public class CriticalBlock {
 
 	private int[] criticalBlock;
