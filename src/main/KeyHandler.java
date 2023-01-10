@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListner {
 
     public boolean upPressed, downPressed, leftPressed, rightPressed;
+    //TODO: M key for map, esc, etc
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -34,7 +35,20 @@ public class KeyHandler implements KeyListner {
 
     @Override
     public void keyReleased(KeyEvent e) {
+        int code = e.getKeyCode();
 
+        if (code == KeyEvent.VK_W) {
+            upPressed = false;
+        }
+        if (code == KeyEvent.VK_S) {
+            downPressed = false;
+        }
+        if (code == KeyEvent.VK_A) {
+            leftPressed = false;
+        }
+        if (code == KeyEvent.VK_D) {
+            rightPressed = false;
+        }
     }
 
 }
