@@ -1,6 +1,6 @@
 package entity;
 
-public class Entity extends Entity {
+public class Entity {
     public int x, y;
     public int speed;
 }

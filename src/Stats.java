@@ -1,4 +1,4 @@
-import Stats.*;
+import stats.*;
 
 public class Stats {
 
