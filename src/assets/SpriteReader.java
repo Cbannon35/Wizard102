@@ -8,6 +8,8 @@ import javax.imageio.ImageIO;
 
 public class SpriteReader {
 
+    public final static String path = "src/assets/gameboy_rpg_v09.png";
+
     /* Default values for 16bit sprite sheet */
     final static int WIDTH = 16, HEIGHT = 16;
     

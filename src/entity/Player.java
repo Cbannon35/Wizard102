@@ -35,7 +35,7 @@ public class Player extends Entity {
         /* Create our player animations */
         animations = new HashMap<String, BufferedImage[]>();
         /* Resolve our sprite sheet path */
-        String path = "src/assets/gameboy_rpg_v09.png";
+        String path = SpriteReader.path;
 
         try {
             /* up */
