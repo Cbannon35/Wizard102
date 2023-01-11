@@ -1,6 +1,9 @@
 package main;
 
 import javax.swing.JPanel;
+
+import assets.SpriteReader;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -47,6 +50,7 @@ public class GamePanel extends JPanel implements Runnable {
         player.update();
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
