@@ -51,4 +51,10 @@ public class KeyHandler implements KeyListener {
         }
     }
 
+    /* 
+     * Helper function to determine if player is idle
+     */
+    public boolean isIdle() {
+        return !(upPressed || downPressed || leftPressed || rightPressed);
+    }
 }

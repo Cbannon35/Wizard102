@@ -14,7 +14,8 @@ public class SpriteReader {
     /*
      * This method reads a sprite from a sprite sheet
      * @param path: path to the sprite sheet
-     * @param row: row of the sprite
+     * NOT 0-INDEXED --> 1,1 is the first sprite
+     * @param row: row of the sprite 
      * @param col: column of the sprite
      * 
      * Potential arguments for overloading (for different resolutions): 
@@ -25,7 +26,8 @@ public class SpriteReader {
         /* Signaling this method thros IOException --> don't have to try&catch */
         BufferedImage spriteSheet = ImageIO.read(new File(path));
         BufferedImage sprite = spriteSheet.getSubimage((col*WIDTH)-WIDTH, (row*HEIGHT)-HEIGHT, WIDTH, HEIGHT);
-
+        //System.out.println(sprite);
+        //System.out.println(sprite.getClass());
         return sprite;
     }
 }

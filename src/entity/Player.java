@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
+import java.util.HashMap;
+import assets.SpriteReader;
 
 public class Player extends Entity {
 
@@ -32,98 +34,110 @@ public class Player extends Entity {
 
     public void getPlayerImage() {
 
+        /* Create our player animations */
+        animations = new HashMap<String, BufferedImage[]>();
+        /* Resolve our sprite sheet path */
+        String path = "src/assets/gameboy_rpg_v09.png";
+
         try {
-
-            up1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_up_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_up_2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_dowm_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_down_2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_left_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_left_2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_right_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_right_2.png"));
-
-
+            /* up */
+            BufferedImage[] upArr = new BufferedImage[1];
+            upArr[0] = SpriteReader.readSprite(path, 8, 30);
+            animations.put("up", upArr);
+            /* upWalk */
+            BufferedImage[] upWalkArr = new BufferedImage[2];
+            upWalkArr[0] = SpriteReader.readSprite(path, 8, 33);
+            upWalkArr[1] = SpriteReader.readSprite(path, 9, 34);
+            animations.put("upWalk", upWalkArr);
+            /* down */
+            BufferedImage[] downArr = new BufferedImage[1];
+            downArr[0] = SpriteReader.readSprite(path, 8, 29);
+            animations.put("down", downArr);
+            /* downWalk */
+            BufferedImage[] downWalkArr = new BufferedImage[2];
+            downWalkArr[0] = SpriteReader.readSprite(path, 8, 31);
+            downWalkArr[1] = SpriteReader.readSprite(path, 9, 32);
+            animations.put("downWalk", downWalkArr);
+            /* left */
+            BufferedImage[] leftArr = new BufferedImage[1];
+            leftArr[0] = SpriteReader.readSprite(path, 8, 37);
+            animations.put("left", leftArr);
+            /* leftWalk */
+            BufferedImage[] leftWalkArr = new BufferedImage[2];
+            leftWalkArr[0] = SpriteReader.readSprite(path, 8, 37);
+            leftWalkArr[1] = SpriteReader.readSprite(path, 9, 38);
+            animations.put("leftWalk", leftWalkArr);
+            /* right */
+            BufferedImage[] rightArr = new BufferedImage[1];
+            rightArr[0] = SpriteReader.readSprite(path, 8, 35);
+            animations.put("right", rightArr);
+            /* rightWalk */
+            BufferedImage[] rightWalkArr = new BufferedImage[2];
+            rightWalkArr[0] = SpriteReader.readSprite(path, 8, 35);
+            rightWalkArr[1] = SpriteReader.readSprite(path, 9, 36);
+            animations.put("rightWalk", rightWalkArr);
         } catch (IOException e) {
             e.printStackTrace();
-        }
     }
+}
 
     public void draw(Graphics2D g2) {
-       // g2.setColor(Color.white);
+        g2.setColor(Color.white);
 
-       // g2.fillRect(x, y, gp.tileSize, gp.tileSize);
+        g2.fillRect(x + 100, y + 100, gp.tileSize, gp.tileSize);
 
-       BufferedImage image = null;
-
-       switch(direction) {
-        case "up":
-            if (spriteNum == 1) {
-                image = up1;
-            }
-            if (spriteNum == 2) {
-                image = up2;
-            }
-            break;
-        case "down":
-            if (spriteNum == 1) {
-                image = down1;
-            }
-            if (spriteNum == 2) {
-                image = down2;
-            }      
-            break;
-        case "left":
-            if (spriteNum == 1) {
-               image = left1;
-            }
-            if (spriteNum == 2) {
-                image = left2;
-            }          
-            break;
-        case "right":
-            if (spriteNum == 1) {
-                image = right1;
-            }
-            if (spriteNum == 2) {
-              image = right2;
-            }         
-            break;
-       }
-       g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        BufferedImage image = null;
+        /* Retrieve current image in animation
+         * Direction --> what animation cycle
+         * spriteNum --> where in animation cycle
+         */
+        image = animations.get(direction)[spriteNum];
+        System.out.println(direction);
+        System.out.println(spriteNum);
+        System.out.println(image);
+        System.out.println(image.getClass());
+        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
     }
 
     public void update() {
-
-        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
+        //System.out.println(direction);
+        if (!keyH.isIdle()) {
             if (keyH.upPressed) {
-                direction = "up";
+                direction = "upWalk";
                 y -= speed;
             }
             if (keyH.downPressed) {
-                direction = "down";
+                direction = "downWalk";
                 y += speed;
             }
             if (keyH.leftPressed) {
-                direction = "left";
+                direction = "leftWalk";
                 x -= speed;
             }
             if (keyH.rightPressed) {
-                direction = "right";
+                direction = "rightWalk";
                 x += speed;
             }
-    
-            spriteCounter++;
-            if (spriteCounter > 12) {
-                if (spriteNum == 1) {
-                    spriteNum = 2;
-                }
-                else if (spriteNum == 2) {
-                    spriteNum = 1;
-                }
-                spriteCounter = 0;
-            }
+        } else {
+            /* Revert to idle */
+            direction = direction.replace("Walk", "");
+        }
+        /*
+         * This code currently has spriteNum always incrementing...
+         * modulo arithmatic should prevent any erros, but this might
+         * result in unwanted frames somewhere
+         */
+        /* Edge case check */
+        int animationLength = animations.get(direction).length;
+        if (spriteNum >= animationLength) {
+            spriteNum = 0;
         }
 
+        spriteCounter++;
+        if (spriteCounter > 12) {
+            //System.out.println(animationLength);
+            spriteNum = (spriteNum + 1) % animationLength;
+            spriteCounter = 0;
+        }
     }
 }

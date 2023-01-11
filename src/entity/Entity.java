@@ -1,14 +1,21 @@
 package entity;
 
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 
 public class Entity {
     public int x, y;
     public int speed;
 
-    public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
+    /* each entity will have a map dictating their animation cycles
+     * for example: a single entity can have
+     * "idle": BufferedImage[idle1, idle2...]
+     * "left": BufferedImage[leftIdle1, leftIdle2...]
+     * "leftWalk": etc
+     */
+    public HashMap<String, BufferedImage[]> animations;
     public String direction;
 
+    public int spriteNum = 0;
     public int spriteCounter = 0;
-    public int spriteNum = 1;
 }
