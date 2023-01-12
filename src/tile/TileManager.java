@@ -25,7 +25,8 @@ public class TileManager {
         // load in our tile assets
         loadTiles(SpriteReader.path);
         // load up our map
-        loadMap("src/tile/map/test.txt");
+        loadMap("/tile/map/test.txt");
+
     }
 
     public void loadTiles(String path) {
@@ -46,7 +47,7 @@ public class TileManager {
                 String line = br.readLine();
 
                 while (col < gp.maxScreenCol) {
-                    String numbers[] = line.split("");
+                    String numbers[] = line.split(" ");
                     int num = Integer.parseInt(numbers[col]);
                     map[row][col] = num;
                     col++;
