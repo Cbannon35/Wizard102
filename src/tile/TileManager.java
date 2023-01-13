@@ -19,13 +19,13 @@ public class TileManager {
 
         this.gp = gp;
         tiles = new Tile[10]; // an array of unique tile assets we will load in
-        map = new int[gp.maxScreenRow][gp.maxScreenCol]; 
-
+        //his row/col are flipped but ours are working YOLO
+        map = new int[gp.maxWorldRow][gp.maxWorldCol]; 
 
         // load in our tile assets
         loadTiles(SpriteReader.path);
         // load up our map
-        loadMap("/tile/map/test.txt");
+        loadMap("/tile/map/test50x50.txt");
 
     }
 
@@ -33,6 +33,8 @@ public class TileManager {
    
         try {
             tiles[0] = new Tile(SpriteReader.readSprite(path, 12, 22));
+            //add different tile just for testing, it's the tile to the right of ours on the sprite sheet
+            tiles[1] = new Tile(SpriteReader.readSprite(path, 12, 23));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -43,17 +45,19 @@ public class TileManager {
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             int row = 0, col = 0;
-            while (col < gp.maxScreenCol && row < gp.maxScreenRow) {
+            while (col < gp.maxWorldCol && row < gp.maxWorldRow) {
                 String line = br.readLine();
 
-                while (col < gp.maxScreenCol) {
+                while (col < gp.maxWorldCol) {
                     String numbers[] = line.split(" ");
                     int num = Integer.parseInt(numbers[col]);
                     map[row][col] = num;
                     col++;
                 }
-                col = 0;
-                row ++;
+                if (col == gp.maxWorldCol) {
+                    col = 0;
+                    row ++;
+                }
             }
             br.close();
         } catch (Exception e) {
@@ -84,20 +88,24 @@ public class TileManager {
         // }
     }
     public void draw(Graphics2D g2) {
-        int col = 0, row = 0;
-        int x = 0, y = 0;
+        int worldCol = 0, worldRow = 0;
 
-        while (col < gp.maxScreenCol && row < gp.maxScreenRow) {
-            int tilenum = map[row][col];
-            g2.drawImage(tiles[tilenum].getImage(), x, y, gp.tileSize, gp.tileSize, null);
-            x += gp.tileSize;
-            col++;
+        while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
+            //his row/col are flipped but ours are working YOLO
+            int tilenum = map[worldRow][worldCol];
+            int worldX = worldCol * gp.tileSize;
+            int worldY = worldRow * gp.tileSize;
+            int screenX = worldX - gp.player.worldX + gp.player.screenX;
+            int screenY = worldY - gp.player.worldY + gp.player.screenY;
+            
+            if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX && worldX  - gp.tileSize < gp.player.worldX + gp.player.screenX && worldY + gp.tileSize > gp.player.worldY - gp.player.screenY && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+                g2.drawImage(tiles[tilenum].getImage(), screenX, screenY, gp.tileSize, gp.tileSize, null);
+            }
+            worldCol++;
 
-            if (col == gp.maxScreenCol) {
-                x = 0;
-                y += gp.tileSize;
-                col = 0;
-                row++;
+            if (worldCol == gp.maxWorldCol) {
+                worldCol = 0;
+                worldRow++;
             } 
         }
 

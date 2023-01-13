@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 public class Entity {
-    public int x, y;
+    public int worldX, worldY;
     public int speed;
 
     /* each entity will have a map dictating their animation cycles

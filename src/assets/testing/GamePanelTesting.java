@@ -62,7 +62,6 @@ public class GamePanelTesting extends JPanel implements Runnable {
         g2.fillRect(1, 1, 20, 20);
         g2.drawImage(image, 8, 30, 100, 100, null);
         g2.fillRect(300, 300, 20, 20);
-
         
         g2.dispose();
         
