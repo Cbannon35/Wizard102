@@ -6,6 +6,7 @@ public class Tile {
 
     public BufferedImage image;
     public int type;
+    public boolean collision = false;
 
     public Tile (BufferedImage image, int type) {
         this.image = image;

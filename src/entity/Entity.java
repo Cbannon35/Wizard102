@@ -2,6 +2,7 @@ package entity;
 
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
+import java.awt.Rectangle;
 
 public class Entity {
     public int worldX, worldY;
@@ -18,4 +19,6 @@ public class Entity {
 
     public int spriteNum = 0;
     public int spriteCounter = 0;
+    public Rectangle solidArea;
+    public boolean collisionOn = false;
 }

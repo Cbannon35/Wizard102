@@ -12,14 +12,13 @@ import assets.SpriteReader;
 public class TileManager {
 
     GamePanel gp;
-    Tile[] tiles;
-    int map[][];
+    public Tile[] tiles;
+    public int map[][];
 
     public TileManager(GamePanel gp) {
 
         this.gp = gp;
         tiles = new Tile[10]; // an array of unique tile assets we will load in
-        //his row/col are flipped but ours are working YOLO
         map = new int[gp.maxWorldRow][gp.maxWorldCol]; 
 
         // load in our tile assets
@@ -35,6 +34,7 @@ public class TileManager {
             tiles[0] = new Tile(SpriteReader.readSprite(path, 12, 22));
             //add different tile just for testing, it's the tile to the right of ours on the sprite sheet
             tiles[1] = new Tile(SpriteReader.readSprite(path, 12, 23));
+            tiles[1].collision = true;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -51,7 +51,13 @@ public class TileManager {
                 while (col < gp.maxWorldCol) {
                     String numbers[] = line.split(" ");
                     int num = Integer.parseInt(numbers[col]);
-                    map[row][col] = num;
+                    /* i had to flip row/col here 
+                    to make collision work
+                    //seems fishy to me, 
+                    maybe we give a deep look at row/col 
+                    in all our arrays at some point 
+                    to prevent future errors/confusion */
+                    map[col][row] = num;
                     col++;
                 }
                 if (col == gp.maxWorldCol) {
@@ -91,8 +97,7 @@ public class TileManager {
         int worldCol = 0, worldRow = 0;
 
         while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
-            //his row/col are flipped but ours are working YOLO
-            int tilenum = map[worldRow][worldCol];
+            int tilenum = map[worldCol][worldRow];
             int worldX = worldCol * gp.tileSize;
             int worldY = worldRow * gp.tileSize;
             int screenX = worldX - gp.player.worldX + gp.player.screenX;

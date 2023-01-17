@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import assets.SpriteReader;
+import java.awt.Rectangle;
 
 public class Player extends Entity {
 
@@ -23,6 +24,8 @@ public class Player extends Entity {
 
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
         screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
+
+        solidArea = new Rectangle(8, 16, 32, 32);
 
         setDefaultValues();
         getPlayerImage();
@@ -101,29 +104,49 @@ public class Player extends Entity {
         if (!keyH.isIdle()) {
             if (keyH.upPressed) {
                 direction = "upWalk";
-                worldY -= speed;
             }
             if (keyH.downPressed) {
                 direction = "downWalk";
-                worldY += speed;
             }
             if (keyH.leftPressed) {
                 direction = "leftWalk";
-                worldX -= speed;
             }
             if (keyH.rightPressed) {
                 direction = "rightWalk";
-                worldX += speed;
             }
-        } else {
+
+            //check tile collision
+            collisionOn = false;
+            gp.cChecker.checkTile(this);
+
+            //if collision is false, player can move
+            if (!collisionOn) {
+                switch(direction) {
+                case "upWalk":
+                    worldY -= speed;
+                    break;
+                case "downWalk":
+                    worldY += speed;
+                    break;
+                case "leftWalk":
+                    worldX -= speed;
+                    break;
+                case "rightWalk":
+                    worldX += speed;
+                    break;     
+                }
+            }
+        } 
+        else {
             /* Revert to idle */
             direction = direction.replace("Walk", "");
         }
+
         /*
-         * This code currently has spriteNum always incrementing...
-         * modulo arithmatic should prevent any erros, but this might
-         * result in unwanted frames somewhere
-         */
+        * This code currently has spriteNum always incrementing...
+        * modulo arithmatic should prevent any errors, but this might
+        * result in unwanted frames somewhere
+        */
         /* Edge case check */
         int animationLength = animations.get(direction).length;
         if (spriteNum >= animationLength) {
